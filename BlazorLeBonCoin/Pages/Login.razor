@@ -10,13 +10,13 @@
     <EditForm Model="this" OnSubmit="SubmitLogin">
         <div class="row m-1 mt-4">
             <div class="col-6">
-                <InputText class="p-1 form-control" @bind-Value="Name" placeholder="Votre nom"></InputText>
+                <InputText class="p-1 form-control" @bind-Value="Email" placeholder="Email"></InputText>
             </div>
 
         </div>
         <div class="row m-1">
             <div class="col-6">
-                <InputText type="password" class="col-6 p-1 form-control" @bind-Value="Password" placeholder="Votre mot de passe"></InputText>
+                <InputText type="password" class="col-6 p-1 form-control" @bind-Value="Password" placeholder="Password"></InputText>
             </div>
 
         </div>
@@ -33,13 +33,13 @@
 
 
 @code {
-    public string Name { get; set; }
+    public string Email { get; set; }
     public string Password { get; set; }
 
     public async void SubmitLogin()
     {
         MultipartFormDataContent content = new MultipartFormDataContent();
-        content.Add(new StringContent(Name), "name");
+        content.Add(new StringContent(Email), "email");
         content.Add(new StringContent(Password), "password");
         HttpResponseMessage responseMessage = await _HttpClient.PostAsync("/user/login", content);
         string token = await responseMessage.Content.ReadAsStringAsync();

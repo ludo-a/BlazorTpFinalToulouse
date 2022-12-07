@@ -1,6 +1,8 @@
 ﻿@page "/register"
 @using System.Diagnostics
 @inject NavigationManager _Navigation
+@inject HttpClient _HttpClient
+@using BlazorLeBonCoin.DTOs
 
 <div class="container">
     <h3><u>Register</u></h3>
@@ -52,7 +54,9 @@
         content.Add(new StringContent(LastName), "lastname");
         content.Add(new StringContent(Email), "email");
         content.Add(new StringContent(Password), "password");
-        content.Add(new StringContent("1"), "roleid");
+        HttpResponseMessage responseMessage = await _HttpClient.PostAsync("/user", content);
+        UserResponseDto response = await _HttpClient.GetFromJsonAsync<List<UserResponseDto>>("/pokemon");
+        //string token = await responseMessage.Content.ReadAsStringAsync();
         
         _Navigation.NavigateTo("register");
     }
