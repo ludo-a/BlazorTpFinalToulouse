@@ -46,7 +46,7 @@
     public string LastName { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
-    
+
     public async void SubmitRegister()
     {
         MultipartFormDataContent content = new MultipartFormDataContent();
@@ -54,10 +54,8 @@
         content.Add(new StringContent(LastName), "lastname");
         content.Add(new StringContent(Email), "email");
         content.Add(new StringContent(Password), "password");
-        HttpResponseMessage responseMessage = await _HttpClient.PostAsync("/user", content);
-        UserResponseDto response = await _HttpClient.GetFromJsonAsync<List<UserResponseDto>>("/pokemon");
-        //string token = await responseMessage.Content.ReadAsStringAsync();
+        HttpResponseMessage responseMessage = await _HttpClient.PostAsync("/api/v1/User", content);
         
-        _Navigation.NavigateTo("register");
+        _Navigation.NavigateTo("login");
     }
 }
